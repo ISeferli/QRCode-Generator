@@ -6,10 +6,10 @@ def main():
     createWindow()
 
 #Function to generate the QR code and save it
-def generateCode(size, text, loc, name):
+def generateCode(text, loc, name):
     #Creating a QRCode object of the size specified by the user
     #Generate QR code
-    url = qrcode.QRCode(version=int(size.get()), box_size=10, border=5)
+    url = qrcode.QRCode(version=1, box_size=10, border=5)
     url.add_data(text.get())
     url.make(fit=True)
     qrImage = url.make_image()
@@ -20,6 +20,11 @@ def generateCode(size, text, loc, name):
 
     # Showing the pop up message on saving the file
     messagebox.showinfo("QR Code Generator", "QR Code is saved successfully!")
+
+    # Clear text boxes
+    text.delete(0, END)
+    loc.delete(0, END)
+    name.delete(0, END)
 
 def createWindow():
     #Creating the window
@@ -57,18 +62,17 @@ def createWindow():
     label3.place(relx=0.05, rely=0.2, relheight=0.08)
     name = Entry(Frame3, font=('Century 12'))
     name.place(relx=0.05, rely=0.4, relwidth=1, relheight=0.2)
- #   name = name + 'png'
 
     # Getting the input of the size of the QR Code
-    Frame4 = Frame(window, bg="SteelBlue3")
+    """Frame4 = Frame(window, bg="SteelBlue3")
     Frame4.place(relx=0.1, rely=0.75, relwidth=0.7, relheight=0.2)
     label4 = Label(Frame4, text="Enter the size from 1 to 40 with 1 being 21x21: ", bg="SteelBlue3", fg='azure', font=('Courier', 13, 'bold'))
     label4.place(relx=0.05, rely=0.2, relheight=0.08)
     size = Entry(Frame4, font=('Century 12'))
-    size.place(relx=0.05, rely=0.4, relwidth=0.5, relheight=0.2)
+    size.place(relx=0.05, rely=0.4, relwidth=0.5, relheight=0.2)"""
 
     # Button to generate and save the QR Code
-    button = Button(window, text='Generate Code', font=('Courier', 15, 'normal'), command=lambda: generateCode(size, text, loc, name))
+    button = Button(window, text='Generate Code', font=('Courier', 15, 'normal'), command=lambda: generateCode(text, loc, name))
     button.place(relx=0.35, rely=0.9, relwidth=0.25, relheight=0.05)
 
     #Runs the window till it is closed manually
